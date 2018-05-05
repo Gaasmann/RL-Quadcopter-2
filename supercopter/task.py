@@ -1,5 +1,6 @@
 import numpy as np
-from physics_sim import PhysicsSim
+from supercopter.physics_sim import PhysicsSim
+
 
 class Task():
     """Task (environment) that defines the goal and provides feedback to the agent."""
