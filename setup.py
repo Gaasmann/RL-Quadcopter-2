@@ -20,4 +20,5 @@ setup(name='Supercopter',
           'numpy',
           'pandas',
           'pytest',
+          'tensorflow-gpu'
       ])
