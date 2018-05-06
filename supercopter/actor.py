@@ -1,5 +1,6 @@
 from keras import layers, models, optimizers
 from keras import backend as K
+from keras.layers.advanced_activations import LeakyReLU
 
 
 class Actor:
@@ -27,13 +28,14 @@ class Actor:
 
     def build_model(self):
         """Build an actor (policy) network that maps states -> actions."""
+        lrelu = LeakyReLU(alpha=0.1)
         # Define input layer (states)
         states = layers.Input(shape=(self.state_size,), name='states')
 
         # Add hidden layers
-        net = layers.Dense(units=32, activation='relu')(states)
-        net = layers.Dense(units=64, activation='relu')(net)
-        net = layers.Dense(units=32, activation='relu')(net)
+        net = layers.Dense(units=400, activation=lrelu)(states)
+        net = layers.Dense(units=300, activation=lrelu)(net)
+        #net = layers.Dense(units=32, activation=lrelu)(net)
 
         # Try different layer sizes, activations, add batch normalization, regularizers, etc.
 

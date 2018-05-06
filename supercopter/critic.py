@@ -1,5 +1,6 @@
 from keras import layers, models, optimizers
 from keras import backend as K
+from keras.layers.advanced_activations import LeakyReLU
 
 
 class Critic:
@@ -22,23 +23,24 @@ class Critic:
 
     def build_model(self):
         """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
+        lrelu = LeakyReLU(alpha=0.1)
         # Define input layers
         states = layers.Input(shape=(self.state_size,), name='states')
         actions = layers.Input(shape=(self.action_size,), name='actions')
 
         # Add hidden layer(s) for state pathway
-        net_states = layers.Dense(units=32, activation='relu')(states)
-        net_states = layers.Dense(units=64, activation='relu')(net_states)
+        net_states = layers.Dense(units=200, activation=lrelu)(states)
+        net_states = layers.Dense(units=150, activation=lrelu)(net_states)
 
         # Add hidden layer(s) for action pathway
-        net_actions = layers.Dense(units=32, activation='relu')(actions)
-        net_actions = layers.Dense(units=64, activation='relu')(net_actions)
+        net_actions = layers.Dense(units=200, activation=lrelu)(actions)
+        net_actions = layers.Dense(units=150, activation=lrelu)(net_actions)
 
         # Try different layer sizes, activations, add batch normalization, regularizers, etc.
 
         # Combine state and action pathways
         net = layers.Add()([net_states, net_actions])
-        net = layers.Activation('relu')(net)
+        net = layers.Activation(lrelu)(net)
 
         # Add more layers to the combined network if needed
 

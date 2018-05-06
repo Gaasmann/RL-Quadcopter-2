@@ -19,7 +19,6 @@ setup(name='Supercopter',
           'matplotlib',
           'numpy',
           'pandas',
-          'pytest',
           'tensorflow',
           'keras'
       ])
